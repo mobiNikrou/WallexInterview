@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.7.4 on win32)" generated="20251105 21:52:20.067" rpa="false" schemaversion="3">
+<suite id="s1" name="FlightStatsTest" source="C:\Users\m.nikrou\Desktop\WallexLiveCoding\UiScenerio\Tests\FlightStatsTest.robot">
+<test id="s1-t1" name="Scenario 1 - Launch and Navigate Test" line="8">
+<kw name="Open Browser To Target Page" library="NavigationPage" type="SETUP">
+<doc>Opens the specified browser and navigates to the target URL.</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>Firefox</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20251105 21:52:20.307" level="INFO">Opening browser 'Firefox' to base url 'https://www.flytoday.ir/'.</msg>
+<msg timestamp="20251105 21:52:20.314" level="INFO">Firefox driver log is always forced to to: C:\Users\m.nikrou\Desktop\WallexLiveCoding\UiScenerio\Tests\geckodriver-1.log</msg>
+<msg timestamp="20251105 21:52:29.037" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<msg timestamp="20251105 21:52:29.037" level="FAIL">WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</msg>
+<status status="FAIL" starttime="20251105 21:52:20.306" endtime="20251105 21:52:29.044"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="NOT RUN" starttime="20251105 21:52:29.044" endtime="20251105 21:52:29.044"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>${URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="NOT RUN" starttime="20251105 21:52:29.045" endtime="20251105 21:52:29.045"/>
+</kw>
+<kw name="Set Selenium Timeout" library="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="NOT RUN" starttime="20251105 21:52:29.045" endtime="20251105 21:52:29.045"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>بلیط هواپیما</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="NOT RUN" starttime="20251105 21:52:29.045" endtime="20251105 21:52:29.045"/>
+</kw>
+<status status="FAIL" starttime="20251105 21:52:20.306" endtime="20251105 21:52:29.045"/>
+</kw>
+<kw name="Close Browser" library="NavigationPage" type="TEARDOWN">
+<doc>Closes all opened browser windows.</doc>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20251105 21:52:29.046" endtime="20251105 21:52:29.046"/>
+</kw>
+<status status="PASS" starttime="20251105 21:52:29.046" endtime="20251105 21:52:29.047"/>
+</kw>
+<doc>Verifies that the application launches successfully and navigates to the main page.</doc>
+<tag>Launch</tag>
+<tag>Smoke</tag>
+<status status="FAIL" starttime="20251105 21:52:20.304" endtime="20251105 21:52:29.047">Setup failed:
+WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</status>
+</test>
+<doc>Test suite for Flight Status verification.</doc>
+<status status="FAIL" starttime="20251105 21:52:20.069" endtime="20251105 21:52:29.049"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">Launch</stat>
+<stat pass="0" fail="1" skip="0">Smoke</stat>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="FlightStatsTest">FlightStatsTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
