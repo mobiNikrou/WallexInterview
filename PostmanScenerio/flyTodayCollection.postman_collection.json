@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "f60b555a-ab67-41d7-aedc-25ff4207f7cf",
+		"name": "flyTodayCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FlyTodaySearch",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// لطفا پیش از اجرا یک اینوارومنت به کالکشن اختصاص دهید | توانایی تعریف متغیر در گلوبال بود اما از نظر طراحی درست نیست\r",
+							"/*\r",
+							"=================توضیح کد pre-req============\r",
+							"طراحی این پیش درخواست با حداقل وابستی است که از هر گونه تغییر در پست من جلوگیری کند\r",
+							"پس آدرس بیس به صورت ثابت تعریف شده\r",
+							"تمامی متغییر ها در اینوارومنت در صورت موجود نبودن ساخته خواهد شد\r",
+							"5 کد شهر مقصد طبق سناریو در بدنه قرار داده شده\r",
+							"ایندکس آرایه ذخیره میشود تا در هرجا متوقف شد مجددا تست از سر گرفته نشود و از ادامه دنبال شود\r",
+							"*/\r",
+							"\r",
+							"const baseUrl = \"https://www.flytoday.ir/\"\r",
+							"\r",
+							"pm.environment.set(\"baseUrl\", baseUrl);\r",
+							"\r",
+							"const destinationCodes = [\"BUZ\", \"MHD\", \"SYZ\", \"IFN\", \"TBZ\"];\r",
+							"\r",
+							"let currentIndex = pm.environment.get(\"current_destination\");\r",
+							"\r",
+							"if (currentIndex === undefined) {\r",
+							"    currentIndex = 0;\r",
+							"} else {\r",
+							"    currentIndex = parseInt(currentIndex, 10);\r",
+							"}\r",
+							"\r",
+							"const currentCode = destinationCodes[currentIndex];\r",
+							"\r",
+							"const nextIndex = (currentIndex + 1) % destinationCodes.length;\r",
+							"\r",
+							"pm.environment.set(\"destination_code\", currentCode);\r",
+							"\r",
+							"pm.environment.set(\"current_destination\", nextIndex);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*\r",
+							"=================توضیح کد تست============\r",
+							"طراحی این پیش درخواست با حداقل وابستی است که از هر گونه تغییر در پست من جلوگیری کند\r",
+							"طی برسی های انجام شده فیلد pricedItineraries تعداد ابجکت های جیسان پرواز هارا دارد\r",
+							"و پراپرتی refundMethod با مقدار های online و offline بیانگر وضعیت تکمیل شده یا نشده پرواز است\r",
+							"از لاگ در کنسول استفاده شده تا در صورت کالکشن ران نتیجه دقیق و با جزئیات قابل مشاهده باشد\r",
+							"تست در صورتی که موفق نباشد خطای مناسب را بر میگرداند تا علت فیلد شدن تست نیز قابل برسی باشد \r",
+							"*/\r",
+							"\r",
+							"try {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    \r",
+							"    if (!responseJson || !responseJson.pricedItineraries || !Array.isArray(responseJson.pricedItineraries)) {\r",
+							"        throw new Error(\"پاسخ دریافتی معتبر نیست یا آرایه pricedItineraries وجود ندارد.\");\r",
+							"    }\r",
+							"    \r",
+							"    const itineraries = responseJson.pricedItineraries;\r",
+							"    \r",
+							"    let onlineCount = 0;\r",
+							"    let offlineCount = 0;\r",
+							"    \r",
+							"        itineraries.forEach(item => {\r",
+							"        const method = item.refundMethod;\r",
+							"        \r",
+							"        if (method === \"Online\") {\r",
+							"            onlineCount++;\r",
+							"        } else if (method === \"Offline\") {\r",
+							"            offlineCount++;\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    let currentIndex = pm.environment.get(\"destination_code\");\r",
+							"\r",
+							"    console.log(\"=======================================\");\r",
+							"    console.log(`نتیجه پرواز های فعال قابل دسترس و غیر قابل دسترس برای  ${currentIndex}`);\r",
+							"    console.log(`تعداد پرواز قابل دسترس یافت شده: ${onlineCount}`);\r",
+							"    console.log(`تعداد غیر قابل دسترس' یافت شده: ${offlineCount}`);\r",
+							"    console.log(`تعداد کل آیتم‌ها: ${itineraries.length}`);\r",
+							"    console.log(\"=======================================\");\r",
+							"\r",
+							"    \r",
+							"} catch (e) {\r",
+							"    console.log(\"❌ خطا در اجرای تست:\", e.message);\r",
+							"    pm.test(\"بررسی JSON موفقیت‌آمیز نبود\", function () {\r",
+							"        pm.expect(false, e.message).to.be.true;\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pricingSourceType\": 0,\r\n    \"adultCount\": 1,\r\n    \"childCount\": 0,\r\n    \"infantCount\": 0,\r\n    \"travelPreference\": {\r\n        \"cabinType\": \"Y\",\r\n        \"maxStopsQuantity\": \"All\",\r\n        \"airTripType\": \"OneWay\"\r\n    },\r\n    \"originDestinationInformations\": [\r\n        {\r\n            \"departureDateTime\": \"2025-11-08\",\r\n            \"destinationLocationCode\": \"{{destination_code}}\",\r\n            \"destinationType\": \"City\",\r\n            \"originLocationCode\": \"THR\",\r\n            \"originType\": \"City\"\r\n        }\r\n    ],\r\n    \"isJalali\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/gateway/V1/flight/search",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"gateway",
+						"V1",
+						"flight",
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
