@@ -33,24 +33,6 @@ Close IFrame Popup
     Unselect Frame
     Sleep    2s
 
-# Select Origin City
-#     Wait Until Element Is Visible    ${FLIGHT_ORIGIN_BUTTON}    timeout=${MID_TIMEOUT}
-#     Click Element    ${FLIGHT_ORIGIN_BUTTON}
-#     Wait Until Element Is Visible    ${FLIGHT_ORIGIN_SEARCHBOX}    timeout=${MIN_TIMEOUT}
-#     Input Text    ${FLIGHT_ORIGIN_SEARCHBOX}   ${CITIES1}
-#     Wait Until Element Is Visible    //*[@data-test="thr"]    timeout=${MIN_TIMEOUT}
-#     Click Element    //*[@data-test="thr"]
-#     Wait Until Page Contains    ${CITIES1}
-
-# Select Destination City
-#     Wait Until Element Is Visible    ${FLIGHT_DESTINATION_BUTTON}    timeout=${MID_TIMEOUT}
-#     Click Element    ${FLIGHT_DESTINATION_BUTTON}
-#     Wait Until Element Is Visible    ${FLIGHT_DESTINATION_SEARCHBOX}    timeout=${MIN_TIMEOUT}
-#     Input Text    ${FLIGHT_DESTINATION_SEARCHBOX}    ${CITIES2}
-#     Wait Until Element Is Visible    //*[@data-test="buz"]    timeout=${MIN_TIMEOUT}
-#     Click Element    //*[@data-test="buz"]
-#     Wait Until Page Contains    ${CITIES2}
-
 Select Search Cities
     [Arguments]  ${FLIGHT_BUTTON}  ${FLIGHT_SEARCHBOX}  ${CITIES}  ${DATA_TEST}
 
@@ -64,10 +46,9 @@ Select Search Cities
     Wait Until Page Contains    ${CITIES}
 
 Select Date in DatePicker
-    # ${TOMORROW_DAY}=    Get Tomorrow Day Number
     Wait Until Element Is Visible    //button[@data-test='start-date-field']    timeout=${MID_TIMEOUT}
     Click Element    //button[@data-test='start-date-field']
-    ${TOMORROW_DAY_XPATH}=    Set Variable    //button[.//span[text()='18']]
+    ${TOMORROW_DAY_XPATH}=    Set Variable    //button[.//span[text()='28']]
     Wait Until Element Is Visible    ${TOMORROW_DAY_XPATH}    timeout=${MID_TIMEOUT}
     Sleep  1s
     Click Element    ${TOMORROW_DAY_XPATH}

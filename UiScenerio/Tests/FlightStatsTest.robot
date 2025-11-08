@@ -4,6 +4,7 @@ Resource            ../Resources/PageObjects/NavigationPage.robot
 Resource            ../Resources/PageObjects/FlightStatusPage.robot
 Resource            ../Resources/Variables.robot
 Suite Setup         Open Browser To Target Page
+Suite Teardown      Close Browser
 
 *** Test Cases ***
 
