@@ -8,7 +8,7 @@ Resource  ../Variables.robot
 
 *** Keywords ***
 Open Browser To Target Page
-    Create webdriver  Firefox  firefox_binary=C:/Program Files/Mozilla Firefox107/firefox.exe  executable_path=C:/Users/m.nikrou/Desktop/MyProject/Selenium/ArziSelProj/CoreSeleniumProject/Common/Drivers/geckodriver.exe
+    Create webdriver  Firefox  firefox_binary=${FIREFOX_APP_PATH}  executable_path=${FIRFOX_DRIVER_PATH}
     Go To    ${URL}
     Maximize Browser Window
     Set Selenium Timeout    ${MAX_TIMEOUT}

@@ -2,6 +2,8 @@
 Documentation    Global variables for the project.
 
 *** Variables ***
+${FIRFOX_DRIVER_PATH}               C:/Users/m.nikrou/Desktop/WallexLiveCoding/UiScenerio/Resources/Driver/geckodriver.exe
+${FIREFOX_APP_PATH}                 C:/Program Files/Mozilla Firefox107/firefox.exe
 ${URL}                              https://www.flytoday.ir/
 ${MAX_TIMEOUT}                      15s
 ${MID_TIMEOUT}                      10s
