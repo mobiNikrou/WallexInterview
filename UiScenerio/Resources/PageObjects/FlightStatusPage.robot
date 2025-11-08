@@ -1,15 +1,13 @@
 *** Keywords ***
 
 Count And Log Flight Results
-    [Documentation]    Counts the number of visible flight result cards and logs the total.
     
-    Wait Until Element Is Visible    ${FLIGHT_RESULT_CARDS}    timeout=15s
+    Wait Until Page Contains Element  css:[id^='itinerary']    timeout=15s
     
-    @{FLIGHT_ELEMENTS}=    Get WebElements    ${FLIGHT_RESULT_CARDS}
+    ${CARD_COUNT}=    Get Element Count    //*[starts-with(@id, 'itinerary')]
+
+    Log To Console    .
+    Log To Console    ========================================
+    Log To Console    Number of flight card is : ${CARD_COUNT}
+    Log To Console    ========================================
     
-    ${TOTAL_FLIGHTS}=    Get Length    ${FLIGHT_ELEMENTS} 
-    
-    Log To Console    Total active flight cards found: ${TOTAL_FLIGHTS}
-    Log    Total active flight cards found: ${TOTAL_FLIGHTS}
-    
-    Set Global Variable    ${FINAL_FLIGHT_COUNT}    ${TOTAL_FLIGHTS}

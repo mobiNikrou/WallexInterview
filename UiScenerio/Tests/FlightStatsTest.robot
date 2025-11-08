@@ -1,21 +1,32 @@
 *** Settings ***
-Documentation    Test suite for Flight Status verification.
-Resource         ../Resources/PageObjects/NavigationPage.robot
-Resource         ../Resources/PageObjects/FlightStatusPage.robot
-Test Setup       Open Browser To Target Page
-Test Teardown    Close Browser
+Documentation       Test suite for Flight Status verification.
+Resource            ../Resources/PageObjects/NavigationPage.robot
+Resource            ../Resources/PageObjects/FlightStatusPage.robot
+Resource            ../Resources/Variables.robot
+Suite Setup         Open Browser To Target Page
 
 *** Test Cases ***
-Scenario 1 - Launch and Navigate Test
-    [Documentation]    Verifies that the application launches successfully and navigates to the main page.
-    [Tags]    Smoke    Launch
-    
-    Log To Console    Successfully navigated to FlyToday website.
+
+Launch and Navigate Test    
     Handle Popup If Visible
     Wait For Main Element
-    Fill Origin and des and date Field
-    Sleep  8s
-    Click Element    xpath://body 
-    Sleep  5s
+
+Fill Serarch Form
+    ${length}=    Get Length    ${DATA_CITIES}
+    FOR    ${index}    IN RANGE    0    ${length}
+
+        ${FLIGHT_BUTTONS}=    Get From List    ${FLIGHT_BUTTON}    ${index}
+        ${FLIGHT_SEARCHBOXS}=    Get From List    ${FLIGHT_SEARCHBOX}    ${index}
+        ${CITIESS}=    Get From List    ${DATA_CITIES}    ${index}
+        ${DATA_TESTS}=    Get From List    ${DATA_TEST}    ${index}
+
+        Select Search Cities    ${FLIGHT_BUTTONS}  ${FLIGHT_SEARCHBOXS}  ${CITIESS}  ${DATA_TESTS}
+    END
+
+Search and Fill DatePicker
+    Select Date in DatePicker
+    Search Ticket
+
+Count Flight Card
     Count And Log Flight Results
     
